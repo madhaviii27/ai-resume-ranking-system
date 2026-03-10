@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>AI Resume Ranking System</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6fa;
+margin:40px;
+}
+
+.container{
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+max-width:800px;
+margin:auto;
+}
+
+textarea{
+width:100%;
+padding:10px;
+}
+
+button{
+background:#4CAF50;
+color:white;
+padding:10px 20px;
+border:none;
+border-radius:5px;
+}
+
+table{
+width:100%;
+margin-top:20px;
+border-collapse:collapse;
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid #ddd;
+}
+
+.bar{
+height:15px;
+background:#4CAF50;
+}
+
+.top{
+background:#e8f5e9;
+padding:15px;
+border-radius:8px;
+margin-top:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>AI Resume Ranking System</h2>
+
+<form method="POST" enctype="multipart/form-data">
+
+<label>Job Description</label><br>
+
+<textarea name="jobdesc" rows="6"></textarea><br><br>
+
+<label>Upload Resumes (PDF)</label><br>
+
+<input type="file" name="resumes" multiple><br><br>
+
+<button type="submit">Analyze Resumes</button>
+
+</form>
+
+{% if top_candidate %}
+
+<div class="top">
+
+<h3>⭐ Top Candidate Recommendation</h3>
+
+<p><strong>{{top_candidate[0]}}</strong> — {{top_candidate[1]}}% match</p>
+
+</div>
+
+{% endif %}
+
+{% if results %}
+
+<h3>Candidate Rankings</h3>
+
+<table>
+
+<tr>
+<th>Resume</th>
+<th>Match</th>
+<th>Score</th>
+</tr>
+
+{% for name,score in results %}
+
+<tr>
+
+<td>{{name}}</td>
+
+<td>
+
+<div style="background:#ddd;width:100%">
+<div class="bar" style="width: {{score}}%"></div>
+</div>
+
+</td>
+
+<td>{{score}}%</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>
